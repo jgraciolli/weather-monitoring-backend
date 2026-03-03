@@ -1,5 +1,6 @@
 package com.weather.monitoring.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.weather.monitoring.entity.WeatherReading;
@@ -24,7 +25,15 @@ public class WeatherReadingController {
     }
 
     @GetMapping("/{stationId}")
-    public List<WeatherReading> getReadingsByStation(@PathVariable Long stationId) {
+    public List<WeatherReading> getReadingsByStation(
+        @PathVariable Long stationId,
+        @RequestParam(required = false) LocalDateTime start,
+        @RequestParam(required = false) LocalDateTime end
+    ) {
+        if (start != null && end != null)
+            return weatherReadingService
+                .getReadingsByStationAndPeriod(stationId, start, end);
+
         return weatherReadingService.getReadingsByStation(stationId);
     }
 

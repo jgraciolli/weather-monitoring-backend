@@ -38,4 +38,13 @@ public class WeatherReadingService {
         return weatherReadingRepository.findByStationId(stationId);
     }
 
+    public List<WeatherReading> getReadingsByStationAndPeriod(
+        Long stationId,
+        LocalDateTime start,
+        LocalDateTime end
+    ){
+        return weatherReadingRepository
+            .findByStationIdAndRecordedAtBetween(stationId, start, end);
+    }
+
 }
