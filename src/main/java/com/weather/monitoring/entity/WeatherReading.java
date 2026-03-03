@@ -1,7 +1,6 @@
 package com.weather.monitoring.entity;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import lombok.*;
 

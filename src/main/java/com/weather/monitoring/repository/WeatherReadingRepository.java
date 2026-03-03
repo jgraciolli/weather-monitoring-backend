@@ -1,7 +1,6 @@
 package com.weather.monitoring.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.weather.monitoring.entity.WeatherReading;
 
