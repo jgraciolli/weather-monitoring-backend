@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import com.weather.monitoring.entity.WeatherReading;
 import com.weather.monitoring.service.WeatherReadingService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/readings")
 public class WeatherReadingController {    
@@ -19,7 +21,7 @@ public class WeatherReadingController {
     @PostMapping("/{stationId}")
     public WeatherReading createReading(
         @PathVariable Long stationId,
-        @RequestBody WeatherReading reading
+        @RequestBody @Valid WeatherReading reading
     ) {
         return weatherReadingService.createReading(stationId, reading);
     }

@@ -2,6 +2,7 @@ package com.weather.monitoring.controller;
 
 import org.springframework.web.bind.annotation.*;
 import com.weather.monitoring.service.StationService;
+import jakarta.validation.Valid;
 import com.weather.monitoring.entity.Station;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class StationController {
     }
 
     @PostMapping
-    public Station createStation(@RequestBody Station station) {
+    public Station createStation(@RequestBody @Valid Station station) {
         return stationService.createStation(station);
     }
 }
