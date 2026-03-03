@@ -7,6 +7,6 @@ import com.weather.monitoring.entity.WeatherReading;
 
 public interface WeatherReadingRepository extends JpaRepository<WeatherReading, Long> {
 
-    List<WeatherReading> findStationById(Long stationId);
+    List<WeatherReading> findByStationId(Long stationId);
     
 }
