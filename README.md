@@ -2,6 +2,8 @@ Weather Monitoring API
 
 API REST desenvolvida com Spring Boot para gerenciamento de estações meteorológicas e suas respectivas leituras climáticas.
 
+Proposta de projeto pensada como uma solução de problema para a empresa IACIT, referência brasileira em soluções tecnológicas na área da meteorologia.
+
 ---
 
 🚀 Tecnologias
