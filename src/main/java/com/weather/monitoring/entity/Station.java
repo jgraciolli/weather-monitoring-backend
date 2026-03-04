@@ -1,5 +1,7 @@
 package com.weather.monitoring.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -28,5 +30,8 @@ public class Station {
     private Double longitude;
 
     private String status;
+
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WeatherReading> readings;
 
 }

@@ -16,6 +16,32 @@ public class WeatherReadingController {
 
     public WeatherReadingController(WeatherReadingService weatherReadingService) {
         this.weatherReadingService = weatherReadingService;  
+    }        
+
+    @GetMapping
+    public List<WeatherReading> getReadingsByStation(
+        @RequestParam(required = false) Long stationId,
+        @RequestParam(required = false) LocalDateTime start,
+        @RequestParam(required = false) LocalDateTime end
+    ) {
+        
+
+        if (stationId != null) {
+
+            if (start != null && end != null) {
+                return weatherReadingService
+                    .getReadingsByStationAndPeriod(stationId, start, end);
+            }
+                            
+            return weatherReadingService.getReadingsByStation(stationId);
+        }          
+                    
+        return weatherReadingService.getAllReadings();
+    }
+
+    @GetMapping("/{id}")
+    public WeatherReading getReadingById(@PathVariable Long id) {
+        return weatherReadingService.getReadingById(id);
     }
 
     @PostMapping("/{stationId}")
@@ -26,17 +52,18 @@ public class WeatherReadingController {
         return weatherReadingService.createReading(stationId, reading);
     }
 
-    @GetMapping("/{stationId}")
-    public List<WeatherReading> getReadingsByStation(
-        @PathVariable Long stationId,
-        @RequestParam(required = false) LocalDateTime start,
-        @RequestParam(required = false) LocalDateTime end
+    @PutMapping("/{readingId}")
+    public WeatherReading updateReading(
+        @PathVariable Long readingId, 
+        @RequestBody @Valid WeatherReading updatedReading
     ) {
-        if (start != null && end != null)
-            return weatherReadingService
-                .getReadingsByStationAndPeriod(stationId, start, end);
 
-        return weatherReadingService.getReadingsByStation(stationId);
+        return weatherReadingService.updateReading(readingId, updatedReading);
+    }
+
+    @DeleteMapping("/{readingId}")
+    public void deleteReading(@PathVariable Long readingId) {
+        weatherReadingService.deleteReading(readingId);
     }
 
 }

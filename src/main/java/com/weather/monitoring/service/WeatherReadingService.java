@@ -22,18 +22,17 @@ public class WeatherReadingService {
         this.stationRepository = stationRepository;
     }
 
-    public WeatherReading createReading(Long stationId, WeatherReading reading) {
-        Station station = stationRepository.findById(stationId)
-            .orElseThrow(() -> new RuntimeException(
-                "Estação meteorológica não encontrada."
-            ));
-        
-        reading.setStation(station);
-        reading.setRecordedAt(LocalDateTime.now());
-        
-        return weatherReadingRepository.save(reading);
+    public List<WeatherReading> getAllReadings() {
+        return weatherReadingRepository.findAll();
     }
-    
+
+    public WeatherReading getReadingById(Long id) {
+        return weatherReadingRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException(
+                "Leitura atmosférica não encontrada."
+            ));
+    }
+
     public List<WeatherReading> getReadingsByStation(Long stationId) {
         return weatherReadingRepository.findByStationId(stationId);
     }
@@ -47,4 +46,34 @@ public class WeatherReadingService {
             .findByStationIdAndRecordedAtBetween(stationId, start, end);
     }
 
+    public WeatherReading createReading(Long stationId, WeatherReading reading) {
+        Station station = stationRepository.findById(stationId)
+            .orElseThrow(() -> new RuntimeException(
+                "Estação meteorológica não encontrada."
+            ));
+        
+        reading.setStation(station);
+        reading.setRecordedAt(LocalDateTime.now());
+        
+        return weatherReadingRepository.save(reading);
+    }        
+
+    public WeatherReading updateReading(Long readingId, WeatherReading updatedReading) {
+        WeatherReading reading = weatherReadingRepository.findById(readingId)
+            .orElseThrow(() -> new RuntimeException(
+                "Leitura atmosférica não encontrada."
+            ));
+
+        reading.setTemperature(updatedReading.getTemperature());
+        reading.setHumidity(updatedReading.getHumidity());
+        reading.setPressure(updatedReading.getPressure());
+        reading.setWindSpeed(updatedReading.getWindSpeed());
+        reading.setRecordedAt(LocalDateTime.now());
+        
+        return weatherReadingRepository.save(reading);
+    }
+
+    public void deleteReading(Long id) {
+        weatherReadingRepository.deleteById(id);
+    }
 }

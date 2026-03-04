@@ -21,8 +21,27 @@ public class StationController {
         return stationService.getAllStations();
     }
 
+    @GetMapping("/{id}")
+    public Station getStationById(@PathVariable Long id) {
+        return stationService.getStationById(id);
+    }
+
     @PostMapping
     public Station createStation(@RequestBody @Valid Station station) {
         return stationService.createStation(station);
     }
+
+    @PutMapping("/{id}")
+    public Station updateStation(
+        @PathVariable Long id,
+        @RequestBody @Valid Station station
+    ){
+        return stationService.updateStation(id, station);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteStation(@PathVariable Long id){
+        stationService.deleteStation(id);
+    }
+
 }

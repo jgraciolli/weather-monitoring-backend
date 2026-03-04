@@ -1,6 +1,9 @@
 package com.weather.monitoring.entity;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -36,6 +39,7 @@ public class WeatherReading {
 
     @ManyToOne
     @JoinColumn(name = "station_id", nullable = false)
+    @JsonIgnore
     private Station station;
 
 }
