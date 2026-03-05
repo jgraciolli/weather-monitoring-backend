@@ -2,6 +2,8 @@ package com.weather.monitoring.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -32,6 +34,7 @@ public class Station {
     private String status;
 
     @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<WeatherReading> readings;
 
 }
